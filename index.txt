@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Jose's Tempest Weather Station</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="dark">
+
+<button onclick="toggleTheme()">Toggle Dark/Light Mode</button>
+
+<div class="card">
+  <h2>Tempest Weather — Live Data</h2>
+  <div id="timestamp"></div>
+  <div id="temp"></div>
+  <div id="humidity"></div>
+  <div id="wind"></div>
+  <div id="pressure"></div>
+  <div id="uv"></div>
+  <div id="rain"></div>
+</div>
+
+<div class="card">
+  <h3>Temperature (Last 24 Hours)</h3>
+  <canvas id="tempChart"></canvas>
+</div>
+
+<div class="card">
+  <h3>Wind Speed (Last 24 Hours)</h3>
+  <canvas id="windChart"></canvas>
+</div>
+
+<div class="card">
+  <h3>Rain Accumulation (Last 24 Hours)</h3>
+  <canvas id="rainChart"></canvas>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
