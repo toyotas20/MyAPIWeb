@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Jose's Tempest Weather Station</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -12,6 +13,7 @@
     }
     .light { background: #eef2f3; color: #000; }
     .dark { background: #0d1117; color: #e6edf3; }
+
     .card {
       padding: 20px;
       border-radius: 12px;
@@ -23,7 +25,6 @@
     }
   </style>
 </head>
-
 
 <body class="dark">
 
@@ -57,7 +58,6 @@
 
 <script>
 const STATION_ID = 221956;
-const DEVICE_ID = 1231123;
 const API_KEY = "cd10a817-9edc-4992-a074-9388dd7ae7ba";
 
 function toggleTheme() {
@@ -85,7 +85,10 @@ async function loadTempest() {
 }
 
 async function loadHistory() {
-  const url = `https://swd.weatherflow.com/swd/rest/observations/device/${DEVICE_ID}?token=${API_KEY}&device_type=ST&time_start=${Math.floor(Date.now()/1000 - 86400)}&time_end=${Math.floor(Date.now()/1000)}`;
+  const now = Math.floor(Date.now() / 1000);
+  const start = now - 86400;
+
+  const url = `https://swd.weatherflow.com/swd/rest/observations/station/${STATION_ID}?token=${API_KEY}&time_start=${start}&time_end=${now}`;
   const res = await fetch(url);
   const data = await res.json();
 
@@ -139,6 +142,7 @@ async function loadHistory() {
 loadTempest();
 loadHistory();
 
+// Refresh every minute
 setInterval(() => {
   loadTempest();
   loadHistory();
