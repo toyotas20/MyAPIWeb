@@ -7,7 +7,10 @@ function toggleTheme() {
 }
 
 async function loadTempest() {
-  const url = `https://corsproxy.io/?https://swd.weatherflow.com/swd/rest/observations/station/${STATION_ID}?token=${API_KEY}`;
+  const url = `https://api.allorigins.win/raw?url=${encodeURIComponent(
+    `https://swd.weatherflow.com/swd/rest/observations/station/${STATION_ID}?token=${API_KEY}`
+  )}`;
+
   const res = await fetch(url);
   const data = await res.json();
 
@@ -28,7 +31,10 @@ async function loadHistory() {
   const now = Math.floor(Date.now() / 1000);
   const start = now - 86400;
 
-  const url = `https://corsproxy.io/?https://swd.weatherflow.com/swd/rest/observations/station/${STATION_ID}?token=${API_KEY}&time_start=${start}&time_end=${now}`;
+  const url = `https://api.allorigins.win/raw?url=${encodeURIComponent(
+    `https://swd.weatherflow.com/swd/rest/observations/station/${STATION_ID}?token=${API_KEY}&time_start=${start}&time_end=${now}`
+  )}`;
+
   const res = await fetch(url);
   const data = await res.json();
 
