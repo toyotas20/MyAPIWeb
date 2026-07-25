@@ -1,5 +1,6 @@
 const STATION_ID = 221956;
 const API_KEY = "cd10a817-9edc-4992-a074-9388dd7ae7ba";
+const WORKER = "https://still-pine-850d.jmelen00.workers.dev/?url=";
 
 function toggleTheme() {
   document.body.classList.toggle("dark");
@@ -7,9 +8,9 @@ function toggleTheme() {
 }
 
 async function loadTempest() {
-  const url = `https://api.allorigins.win/raw?url=${encodeURIComponent(
+  const url = WORKER + encodeURIComponent(
     `https://swd.weatherflow.com/swd/rest/observations/station/${STATION_ID}?token=${API_KEY}`
-  )}`;
+  );
 
   const res = await fetch(url);
   const data = await res.json();
@@ -31,9 +32,9 @@ async function loadHistory() {
   const now = Math.floor(Date.now() / 1000);
   const start = now - 86400;
 
-  const url = `https://api.allorigins.win/raw?url=${encodeURIComponent(
+  const url = WORKER + encodeURIComponent(
     `https://swd.weatherflow.com/swd/rest/observations/station/${STATION_ID}?token=${API_KEY}&time_start=${start}&time_end=${now}`
-  )}`;
+  );
 
   const res = await fetch(url);
   const data = await res.json();
