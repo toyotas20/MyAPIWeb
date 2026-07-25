@@ -42,6 +42,9 @@ async function loadHistory() {
 
   const history = data.obs;
 
+  // Safari fix: slight delay before drawing charts
+  await new Promise(r => setTimeout(r, 100));
+
   const labels = history.map(o => new Date(o.timestamp * 1000).toLocaleTimeString());
   const temps = history.map(o => (o.air_temperature * 9/5 + 32).toFixed(1));
   const winds = history.map(o => o.wind_avg);
@@ -59,6 +62,34 @@ async function loadHistory() {
       }]
     }
   });
+
+  new Chart(document.getElementById("windChart"), {
+    type: "line",
+    data: {
+      labels,
+      datasets: [{
+        label: "Wind Speed (mph)",
+        data: winds,
+        borderColor: "#2196f3",
+        backgroundColor: "rgba(33,150,243,0.2)"
+      }]
+    }
+  });
+
+  new Chart(document.getElementById("rainChart"), {
+    type: "line",
+    data: {
+      labels,
+      datasets: [{
+        label: "Rain (in)",
+        data: rains,
+        borderColor: "#4caf50",
+        backgroundColor: "rgba(76,175,80,0.2)"
+      }]
+    }
+  });
+}
+
 
   new Chart(document.getElementById("windChart"), {
     type: "line",
