@@ -2,7 +2,6 @@ const WORKER = "https://still-pine-850d.jmelen00.workers.dev/?url=";
 const STATION_ID = 221956;
 const API_KEY = "cd10a817-9edc-4992-a074-9388dd7ae7ba";
 
-
 function toggleTheme() {
   document.body.classList.toggle("dark");
   document.body.classList.toggle("light");
@@ -42,7 +41,7 @@ async function loadHistory() {
 
   const history = data.obs;
 
-  // Safari fix: slight delay before drawing charts
+  // Safari timing fix
   await new Promise(r => setTimeout(r, 100));
 
   const labels = history.map(o => new Date(o.timestamp * 1000).toLocaleTimeString());
@@ -62,34 +61,6 @@ async function loadHistory() {
       }]
     }
   });
-
-  new Chart(document.getElementById("windChart"), {
-    type: "line",
-    data: {
-      labels,
-      datasets: [{
-        label: "Wind Speed (mph)",
-        data: winds,
-        borderColor: "#2196f3",
-        backgroundColor: "rgba(33,150,243,0.2)"
-      }]
-    }
-  });
-
-  new Chart(document.getElementById("rainChart"), {
-    type: "line",
-    data: {
-      labels,
-      datasets: [{
-        label: "Rain (in)",
-        data: rains,
-        borderColor: "#4caf50",
-        backgroundColor: "rgba(76,175,80,0.2)"
-      }]
-    }
-  });
-}
-
 
   new Chart(document.getElementById("windChart"), {
     type: "line",
