@@ -1,28 +1,36 @@
+// -------------------------------
+// CONFIG
+// -------------------------------
 const WORKER = "https://still-pine-850d.jmelen00.workers.dev/?url=";
-const STATION_ID = 221956;
-const DEVICE_ID = 1231123;
-const API_KEY = "15375284-0370-4ba4-be3d-ab6ec4fbed64";
+const STATION_ID = 221956;      // Live data
+const DEVICE_ID = 1231123;      // Historical data
+const API_KEY = "YOUR_API_KEY_HERE";
 
+// -------------------------------
+// THEME TOGGLE
+// -------------------------------
 function toggleTheme() {
   document.body.classList.toggle("dark");
   document.body.classList.toggle("light");
 }
 
+// -------------------------------
+// LOAD LIVE DATA (station endpoint)
+// -------------------------------
 async function loadTempest() {
   const url = WORKER + encodeURIComponent(
-   `https://swd.weatherflow.com/swd/rest/observations/device/${DEVICE_ID}?token=${API_KEY}&time_start=${start}&time_end=${now}`
+    `https://swd.weatherflow.com/swd/rest/observations/station/${STATION_ID}?token=${API_KEY}`
   );
 
   const res = await fetch(url);
   const data = await res.json();
 
-  // Safety check
   if (!data || !data.obs || !data.obs.length) {
-    console.log("No observations returned:", data);
+    console.log("No live observations returned:", data);
     return;
   }
 
-  const obs = data.obs[0];   // ⭐ REQUIRED
+  const obs = data.obs[0];
 
   const tempF = obs.air_temperature * 9/5 + 32;
   const ts = new Date(obs.timestamp * 1000).toLocaleString();
@@ -36,12 +44,15 @@ async function loadTempest() {
   document.getElementById("rain").innerText = `Rain Today: ${obs.precip_accum_local_day} in`;
 }
 
+// -------------------------------
+// LOAD 24-HOUR HISTORY (device endpoint)
+// -------------------------------
 async function loadHistory() {
   const now = Math.floor(Date.now() / 1000);
   const start = now - 86400; // last 24 hours
 
   const url = WORKER + encodeURIComponent(
-    `https://swd.weatherflow.com/swd/rest/observations/device/1231123?token=${API_KEY}&time_start=${start}&time_end=${now}`
+    `https://swd.weatherflow.com/swd/rest/observations/device/${DEVICE_ID}?token=${API_KEY}&time_start=${start}&time_end=${now}`
   );
 
   const res = await fetch(url);
@@ -108,7 +119,9 @@ async function loadHistory() {
   });
 }
 
-
+// -------------------------------
+// INITIAL LOAD + AUTO REFRESH
+// -------------------------------
 loadTempest();
 loadHistory();
 
