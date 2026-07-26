@@ -1,5 +1,6 @@
 const WORKER = "https://still-pine-850d.jmelen00.workers.dev/?url=";
 const STATION_ID = 221956;
+const DEVICE_ID = 1231123;
 const API_KEY = "15375284-0370-4ba4-be3d-ab6ec4fbed64";
 
 function toggleTheme() {
@@ -37,24 +38,23 @@ async function loadTempest() {
 
 async function loadHistory() {
   const now = Math.floor(Date.now() / 1000);
-  const start = now - 86400;
+  const start = now - 86400; // last 24 hours
 
   const url = WORKER + encodeURIComponent(
-    `https://swd.weatherflow.com/swd/rest/observations/station/${STATION_ID}?token=${API_KEY}&time_start=${start}&time_end=${now}`
+    `https://swd.weatherflow.com/swd/rest/observations/device/1231123?token=${API_KEY}&time_start=${start}&time_end=${now}`
   );
 
   const res = await fetch(url);
   const data = await res.json();
 
-  // Safety check
   if (!data || !data.obs || !data.obs.length) {
-    console.log("No history returned:", data);
+    console.log("No device history returned:", data);
     return;
   }
 
-  const history = data.obs;   // ⭐ REQUIRED
+  const history = data.obs;
 
-  await new Promise(r => setTimeout(r, 100));
+  await new Promise(r => setTimeout(r, 100)); // Safari timing fix
 
   const labels = history.map(o => new Date(o.timestamp * 1000).toLocaleTimeString());
   const temps = history.map(o => (o.air_temperature * 9/5 + 32).toFixed(1));
@@ -107,6 +107,7 @@ async function loadHistory() {
     }
   });
 }
+
 
 loadTempest();
 loadHistory();
