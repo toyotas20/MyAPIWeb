@@ -26,7 +26,7 @@ body {
   backdrop-filter: blur(10px);
 }
 
-/* ⭐ FIX: Chart Canvas Visibility */
+/* ⭐ REQUIRED FOR CHART VISIBILITY */
 canvas {
   width: 100% !important;
   height: 220px !important;   /* Ensures visible chart height */
@@ -34,8 +34,7 @@ canvas {
   margin-top: 10px;
 }
 
-/* Optional: Make charts look cleaner */
+/* Optional: Chart container spacing */
 .chart-container {
   padding: 10px 0;
 }
-
