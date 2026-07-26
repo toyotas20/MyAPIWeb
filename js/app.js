@@ -111,7 +111,7 @@ async function loadHistory() {
       }
     }
   });
-}   // ⭐ THIS WAS MISSING — closes loadHistory()
+}   // ← THIS NOW CORRECTLY CLOSES loadHistory()
 
 loadTempest();
 loadHistory();
