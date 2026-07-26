@@ -4,9 +4,18 @@ body {
   transition: background 0.3s, color 0.3s;
 }
 
-.light { background: #eef2f3; color: #000; }
-.dark { background: #0d1117; color: #e6edf3; }
+/* Light & Dark Themes */
+.light { 
+  background: #eef2f3; 
+  color: #000; 
+}
 
+.dark { 
+  background: #0d1117; 
+  color: #e6edf3; 
+}
+
+/* Glassmorphism Cards */
 .card {
   padding: 20px;
   border-radius: 12px;
@@ -16,3 +25,17 @@ body {
   background: rgba(255,255,255,0.05);
   backdrop-filter: blur(10px);
 }
+
+/* ⭐ FIX: Chart Canvas Visibility */
+canvas {
+  width: 100% !important;
+  height: 220px !important;   /* Ensures visible chart height */
+  display: block;
+  margin-top: 10px;
+}
+
+/* Optional: Make charts look cleaner */
+.chart-container {
+  padding: 10px 0;
+}
+
