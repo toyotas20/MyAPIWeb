@@ -4,7 +4,7 @@
 const WORKER = "https://still-pine-850d.jmelen00.workers.dev/?url=";
 const STATION_ID = 221956;      // Live data
 const DEVICE_ID = 1231123;      // Historical data
-const API_KEY = "YOUR_API_KEY_HERE";
+const API_KEY = "15375284-0370-4ba4-be3d-ab6ec4fbed64";
 
 // -------------------------------
 // THEME TOGGLE
