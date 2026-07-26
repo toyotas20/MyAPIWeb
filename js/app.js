@@ -21,7 +21,7 @@ async function loadTempest() {
     return;
   }
 
-  const obs = data.obs[0];   // ⭐ YOU MUST HAVE THIS LINE
+  const obs = data.obs[0];   // ⭐ REQUIRED
 
   const tempF = obs.air_temperature * 9/5 + 32;
   const ts = new Date(obs.timestamp * 1000).toLocaleString();
@@ -52,7 +52,7 @@ async function loadHistory() {
     return;
   }
 
-  const history = data.obs;   // ⭐ YOU MUST HAVE THIS LINE
+  const history = data.obs;   // ⭐ REQUIRED
 
   await new Promise(r => setTimeout(r, 100));
 
