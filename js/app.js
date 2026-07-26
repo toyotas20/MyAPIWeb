@@ -15,7 +15,14 @@ async function loadTempest() {
   const res = await fetch(url);
   const data = await res.json();
 
-  const obs = data.obs[0];
+  // Safety check
+  if (!data || !data.obs || !data.obs.length) {
+    console.log("No observations returned:", data);
+    return;
+  }
+
+  const obs = data.obs[0];   // ⭐ YOU MUST HAVE THIS LINE
+
   const tempF = obs.air_temperature * 9/5 + 32;
   const ts = new Date(obs.timestamp * 1000).toLocaleString();
 
@@ -39,7 +46,13 @@ async function loadHistory() {
   const res = await fetch(url);
   const data = await res.json();
 
-  const history = data.obs;
+  // Safety check
+  if (!data || !data.obs || !data.obs.length) {
+    console.log("No history returned:", data);
+    return;
+  }
+
+  const history = data.obs;   // ⭐ YOU MUST HAVE THIS LINE
 
   await new Promise(r => setTimeout(r, 100));
 
@@ -63,12 +76,6 @@ async function loadHistory() {
         borderWidth: 2,
         backgroundColor: "rgba(255,152,0,0.2)"
       }]
-    },
-    options: {
-      scales: {
-        y: { min: 0, max: 120 },
-        x: {}
-      }
     }
   });
 
@@ -83,12 +90,6 @@ async function loadHistory() {
         borderWidth: 2,
         backgroundColor: "rgba(33,150,243,0.2)"
       }]
-    },
-    options: {
-      scales: {
-        y: { min: 0, max: 50 },
-        x: {}
-      }
     }
   });
 
@@ -103,15 +104,9 @@ async function loadHistory() {
         borderWidth: 2,
         backgroundColor: "rgba(76,175,80,0.2)"
       }]
-    },
-    options: {
-      scales: {
-        y: { min: 0, max: 2 },
-        x: {}
-      }
     }
   });
-}   // ← THIS NOW CORRECTLY CLOSES loadHistory()
+}
 
 loadTempest();
 loadHistory();
