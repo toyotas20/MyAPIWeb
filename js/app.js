@@ -10,7 +10,7 @@ function toggleTheme() {
 
 async function loadTempest() {
   const url = WORKER + encodeURIComponent(
-    `https://swd.weatherflow.com/swd/rest/observations/station/${STATION_ID}?token=${API_KEY}`
+   `https://swd.weatherflow.com/swd/rest/observations/device/${DEVICE_ID}?token=${API_KEY}&time_start=${start}&time_end=${now}`
   );
 
   const res = await fetch(url);
