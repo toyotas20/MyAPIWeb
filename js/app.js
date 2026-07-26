@@ -1,6 +1,6 @@
 const WORKER = "https://still-pine-850d.jmelen00.workers.dev/?url=";
 const STATION_ID = 221956;
-const API_KEY = "5375284-0370-4ba4-be3d-ab6ec4fbed64";
+const API_KEY = "15375284-0370-4ba4-be3d-ab6ec4fbed64";
 
 function toggleTheme() {
   document.body.classList.toggle("dark");
