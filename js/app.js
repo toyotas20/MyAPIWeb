@@ -1,6 +1,6 @@
 const WORKER = "https://still-pine-850d.jmelen00.workers.dev/?url=";
 const STATION_ID = 221956;
-const API_KEY = "15375284-0370-4ba4-be3d-ab6ec4fbed64";
+const API_KEY = "YOUR_NEW_KEY_HERE";
 
 function toggleTheme() {
   document.body.classList.toggle("dark");
@@ -41,7 +41,6 @@ async function loadHistory() {
 
   const history = data.obs;
 
-  // Safari timing fix
   await new Promise(r => setTimeout(r, 100));
 
   const labels = history.map(o => new Date(o.timestamp * 1000).toLocaleTimeString());
@@ -49,90 +48,70 @@ async function loadHistory() {
   const winds = history.map(o => o.wind_avg);
   const rains = history.map(o => o.precip_accum_local_day);
 
-  // Destroy old charts before drawing new ones
   if (window.tempChart) window.tempChart.destroy();
   if (window.windChart) window.windChart.destroy();
   if (window.rainChart) window.rainChart.destroy();
 
- window.tempChart = new Chart(document.getElementById("tempChart"), {
-  type: "line",
-  data: {
-    labels,
-    datasets: [{
-      label: "Temperature (°F)",
-      data: temps,
-      borderColor: "#ff9800",
-      borderWidth: 2,
-      backgroundColor: "rgba(255,152,0,0.2)"
-    }]
-  },
-  options: {
-    scales: {
-      y: {
-        min: 0,
-        max: 120,
-        ticks: { color: "#e6edf3" }
-      },
-      x: {
-        ticks: { color: "#e6edf3" }
+  window.tempChart = new Chart(document.getElementById("tempChart"), {
+    type: "line",
+    data: {
+      labels,
+      datasets: [{
+        label: "Temperature (°F)",
+        data: temps,
+        borderColor: "#ff9800",
+        borderWidth: 2,
+        backgroundColor: "rgba(255,152,0,0.2)"
+      }]
+    },
+    options: {
+      scales: {
+        y: { min: 0, max: 120 },
+        x: {}
       }
     }
-  }
-});
-window.windChart = new Chart(document.getElementById("windChart"), {
-  type: "line",
-  data: {
-    labels,
-    datasets: [{
-      label: "Wind Speed (mph)",
-      data: winds,
-      borderColor: "#2196f3",
-      borderWidth: 2,
-      backgroundColor: "rgba(33,150,243,0.2)"
-    }]
-  },
-  options: {
-    scales: {
-      y: {
-        min: 0,
-        max: 50,
-        ticks: { color: "#e6edf3" }
-      },
-      x: {
-        ticks: { color: "#e6edf3" }
+  });
+
+  window.windChart = new Chart(document.getElementById("windChart"), {
+    type: "line",
+    data: {
+      labels,
+      datasets: [{
+        label: "Wind Speed (mph)",
+        data: winds,
+        borderColor: "#2196f3",
+        borderWidth: 2,
+        backgroundColor: "rgba(33,150,243,0.2)"
+      }]
+    },
+    options: {
+      scales: {
+        y: { min: 0, max: 50 },
+        x: {}
       }
     }
-  }
-});
+  });
 
-
-window.rainChart = new Chart(document.getElementById("rainChart"), {
-  type: "line",
-  data: {
-    labels,
-    datasets: [{
-      label: "Rain (in)",
-      data: rains,
-      borderColor: "#4caf50",
-      borderWidth: 2,
-      backgroundColor: "rgba(76,175,80,0.2)"
-    }]
-  },
-  options: {
-    scales: {
-      y: {
-        min: 0,
-        max: 2,
-        ticks: { color: "#e6edf3" }
-      },
-      x: {
-        ticks: { color: "#e6edf3" }
+  window.rainChart = new Chart(document.getElementById("rainChart"), {
+    type: "line",
+    data: {
+      labels,
+      datasets: [{
+        label: "Rain (in)",
+        data: rains,
+        borderColor: "#4caf50",
+        borderWidth: 2,
+        backgroundColor: "rgba(76,175,80,0.2)"
+      }]
+    },
+    options: {
+      scales: {
+        y: { min: 0, max: 2 },
+        x: {}
       }
     }
-  }
-});
-
-
+  });
+}   // ⭐ THIS WAS MISSING — closes loadHistory()
 
 loadTempest();
 loadHistory();
