@@ -49,7 +49,12 @@ async function loadHistory() {
   const winds = history.map(o => o.wind_avg);
   const rains = history.map(o => o.precip_accum_local_day);
 
-  new Chart(document.getElementById("tempChart"), {
+  // Destroy old charts before drawing new ones
+  if (window.tempChart) window.tempChart.destroy();
+  if (window.windChart) window.windChart.destroy();
+  if (window.rainChart) window.rainChart.destroy();
+
+  window.tempChart = new Chart(document.getElementById("tempChart"), {
     type: "line",
     data: {
       labels,
@@ -62,7 +67,7 @@ async function loadHistory() {
     }
   });
 
-  new Chart(document.getElementById("windChart"), {
+  window.windChart = new Chart(document.getElementById("windChart"), {
     type: "line",
     data: {
       labels,
@@ -70,12 +75,12 @@ async function loadHistory() {
         label: "Wind Speed (mph)",
         data: winds,
         borderColor: "#2196f3",
-        backgroundColor: "rgba(33,150,243,0.2)"
+        backgroundColor: "rgba(33,150,243,0,0.2)"
       }]
     }
   });
 
-  new Chart(document.getElementById("rainChart"), {
+  window.rainChart = new Chart(document.getElementById("rainChart"), {
     type: "line",
     data: {
       labels,
@@ -88,6 +93,7 @@ async function loadHistory() {
     }
   });
 }
+
 
 loadTempest();
 loadHistory();
